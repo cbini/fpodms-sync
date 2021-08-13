@@ -15,8 +15,8 @@ PROJECT_PATH = pathlib.Path(__file__).absolute().parent
 
 
 def main():
-    ## load PS rosters into pandas
-    print("Reading PS rosters into pandas...")
+    ## load SIS rosters into pandas
+    print("Reading SIS roster into pandas...")
     roster_df = pd.read_json(ROSTER_FILEPATH)
 
     ## create instance of F&P client
@@ -49,8 +49,8 @@ def main():
     fp_df = fp_df[["studentId", "studentIdentifier"]].drop_duplicates()
     fp_df.studentIdentifier = fp_df.studentIdentifier.astype(int)
 
-    ## match FP rosters to PS
-    print("Matching PS rosters to F&P...")
+    ## match FP rosters to SIS
+    print("Matching SIS roster to F&P...")
     merge_df = pd.merge(left=roster_df, right=fp_df, how="left", on="studentIdentifier")
 
     ## add academic year to merged df
