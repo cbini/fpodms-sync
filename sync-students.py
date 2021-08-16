@@ -65,12 +65,13 @@ def main():
     )
     merge_records = merge_df.to_dict(orient="records")
 
+    print("Processing student records...")
     for r in merge_records:
-        if not r["studentId"]:
-            print(f"{r['firstName']} {r['lastName']} {r['studentIdentifier']}")
+        if r["studentId"] is pd.NA:
+            print(f"\t{r['firstName']} {r['lastName']} {r['studentIdentifier']}")
             try:
                 fp.api.add_student(**r)
-                print("\tCREATED")
+                print("\t\tCREATED")
             except Exception as xc:
                 print(xc)
         else:
@@ -83,10 +84,10 @@ def main():
                 e for e in stu_enr_all if e.get("schoolYearId") == CURRENT_ACADEMIC_YEAR
             ]
             if not stu_enr_cur:
-                print(f"{r['firstName']} {r['lastName']} {r['studentIdentifier']}")
+                print(f"\t{r['firstName']} {r['lastName']} {r['studentIdentifier']}")
                 try:
                     fp.api.add_student_to_school_and_grade_and_maybe_class(**r)
-                    print("\tUPDATED")
+                    print("\t\tUPDATED")
                 except Exception as xc:
                     print(xc)
 
