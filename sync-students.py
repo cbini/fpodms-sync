@@ -11,6 +11,7 @@ FPODMS_USERNAME = os.getenv("FPODMS_USERNAME")
 FPODMS_PASSWORD = os.getenv("FPODMS_PASSWORD")
 ROSTER_FILEPATH = os.getenv("ROSTER_FILEPATH")
 CURRENT_ACADEMIC_YEAR = int(os.getenv("CURRENT_ACADEMIC_YEAR"))
+FIRST_ACADEMIC_YEAR = int(os.getenv("FIRST_ACADEMIC_YEAR"))
 PROJECT_PATH = pathlib.Path(__file__).absolute().parent
 
 
@@ -26,6 +27,7 @@ def main():
     ## get all years
     print("Pulling all years from F&P...")
     all_years = fp.api.all_years()
+    all_years = [y for y in all_years if y["id"] >= FIRST_ACADEMIC_YEAR]
 
     ## get all schools
     print("Pulling all schools from F&P...")
@@ -53,63 +55,40 @@ def main():
     print("Matching SIS roster to F&P...")
     merge_df = pd.merge(left=roster_df, right=fp_df, how="left", on="studentIdentifier")
 
-    ## add academic year to merged df
-    ## translate schoolName to schoolId
+    ## transform columns
+    merge_df.studentId = merge_df.studentId.astype(int)
     merge_df["schoolYearId"] = CURRENT_ACADEMIC_YEAR
     merge_df["schoolId"] = merge_df.schoolName.apply(
         lambda n: next(
             iter([s.get("id") for s in all_schools if s.get("name") == n]), None
         )
     )
+    merge_records = merge_df.to_dict(orient="records")
 
-    ## subset unmatched students
-    print("Filtering students for record creation...")
-    create_df = merge_df[merge_df.studentId.isnull()]
-    create_records = create_df.to_dict(orient="records")
-
-    ## subset unmatched students
-    print("Filtering students for record updates...")
-    update_df = merge_df[merge_df.studentId.notnull()]
-    update_df.studentId = update_df.studentId.astype(int)
-    update_records = update_df.to_dict(orient="records")
-
-    ## create new students
-    for c in create_records:
-        try:
-            print(
-                f"\tCREATING {c['firstName']} {c['lastName']} {c['studentIdentifier']}"
-            )
-            fp.api.add_student(**c)
-        except Exception as xc:
-            print(xc)
-
-    print(f"\tCreated {len(create_records)} student records...")
-
-    ## check for existing enrollment for current school year
-    print("Updating students for new year...")
-    n_updated = 0
-    for u in update_records:
-        student_enrollments = [
-            s
-            for s in all_students_years
-            if s.get("studentIdentifier") == str(u["studentIdentifier"])
-        ]
-        current_year_enrollments = [
-            e
-            for e in student_enrollments
-            if e.get("schoolYearId") == CURRENT_ACADEMIC_YEAR
-        ]
-        if not current_year_enrollments:
+    for r in merge_records:
+        if not r["studentId"]:
+            print(f"{r['firstName']} {r['lastName']} {r['studentIdentifier']}")
             try:
-                print(
-                    f"\tUPDATING {u['firstName']} {u['lastName']} {u['studentIdentifier']}"
-                )
-                fp.api.add_student_to_school_and_grade_and_maybe_class(**u)
-                n_updated += 1
+                fp.api.add_student(**r)
+                print("\tCREATED")
             except Exception as xc:
                 print(xc)
-
-    print(f"\tUpdated {n_updated} student records...")
+        else:
+            stu_enr_all = [
+                s
+                for s in all_students_years
+                if s.get("studentIdentifier") == str(r["studentIdentifier"])
+            ]
+            stu_enr_cur = [
+                e for e in stu_enr_all if e.get("schoolYearId") == CURRENT_ACADEMIC_YEAR
+            ]
+            if not stu_enr_cur:
+                print(f"{r['firstName']} {r['lastName']} {r['studentIdentifier']}")
+                try:
+                    fp.api.add_student_to_school_and_grade_and_maybe_class(**r)
+                    print("\tUPDATED")
+                except Exception as xc:
+                    print(xc)
 
 
 if __name__ == "__main__":
