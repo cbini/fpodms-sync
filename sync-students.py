@@ -49,14 +49,14 @@ def main():
     print("Reading F&P rosters into pandas...")
     fp_df = pd.DataFrame(all_students_years)
     fp_df = fp_df[["studentId", "studentIdentifier"]].drop_duplicates()
-    fp_df.studentIdentifier = fp_df.studentIdentifier.astype("Int64")
+    fp_df.studentIdentifier = fp_df.studentIdentifier.astype("float").astype("Int64")
 
     ## match FP rosters to SIS
     print("Matching SIS roster to F&P...")
     merge_df = pd.merge(left=roster_df, right=fp_df, how="left", on="studentIdentifier")
 
     ## transform columns
-    merge_df.studentId = merge_df.studentId.astype(int)
+    merge_df.studentId = merge_df.studentId.astype("float").astype("Int64")
     merge_df["schoolYearId"] = CURRENT_ACADEMIC_YEAR
     merge_df["schoolId"] = merge_df.schoolName.apply(
         lambda n: next(
