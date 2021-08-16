@@ -49,7 +49,7 @@ def main():
     print("Reading F&P rosters into pandas...")
     fp_df = pd.DataFrame(all_students_years)
     fp_df = fp_df[["studentId", "studentIdentifier"]].drop_duplicates()
-    fp_df.studentIdentifier = fp_df.studentIdentifier.astype(int)
+    fp_df.studentIdentifier = fp_df.studentIdentifier.astype("Int64")
 
     ## match FP rosters to SIS
     print("Matching SIS roster to F&P...")
