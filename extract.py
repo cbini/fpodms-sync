@@ -2,10 +2,13 @@ import gzip
 import json
 import os
 import pathlib
+import traceback
 
 import fpodms
 from dotenv import load_dotenv
 from google.cloud import storage
+
+from datarobot.utilities import email
 
 load_dotenv()
 
@@ -85,4 +88,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as xc:
+        email_subject = "F&P Extract Error"
+        email_body = f"{xc}\n\n{traceback.format_exc()}"
+        email.send_email(subject=email_subject, body=email_body)

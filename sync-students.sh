@@ -1,2 +1,5 @@
-~/quotaguard/bin/qgtunnel python3.6 ~/datarobot/db_extracts/db_extracts.py --config ~/datarobot/db_extracts/config/fpodms.json
-~/.virtualenvs/fpodms/bin/python ~/datarobot/fpodms/sync-students.py
+cd ~/datarobot/datagun
+./bin/qgtunnel ~/.pyenv/versions/datagun/bin/python ./datagun/extract.py -C ./datagun/config/fpodms.json
+
+cd ~/datarobot/fpodms
+~/.virtualenvs/fpodms/bin/python sync-students.py

@@ -1,9 +1,12 @@
 import os
 import pathlib
+import traceback
 
 import fpodms
 import pandas as pd
 from dotenv import load_dotenv
+
+from datarobot.utilities import email
 
 load_dotenv()
 
@@ -74,6 +77,9 @@ def main():
                 print("\t\tCREATED")
             except Exception as xc:
                 print(xc)
+                email_subject = "F&P Student Sync Error"
+                email_body = f"{r}\n\n{xc}\n\n{traceback.format_exc()}"
+                email.send_email(subject=email_subject, body=email_body)
         else:
             stu_enr_all = [
                 s
@@ -90,6 +96,9 @@ def main():
                     print("\t\tUPDATED")
                 except Exception as xc:
                     print(xc)
+                    email_subject = "F&P Student Sync Error"
+                    email_body = f"{r}\n\n{xc}\n\n{traceback.format_exc()}"
+                    email.send_email(subject=email_subject, body=email_body)
 
 
 if __name__ == "__main__":
@@ -97,3 +106,6 @@ if __name__ == "__main__":
         main()
     except Exception as xc:
         print(xc)
+        email_subject = "F&P Student Sync Error"
+        email_body = f"{xc}\n\n{traceback.format_exc()}"
+        email.send_email(subject=email_subject, body=email_body)
