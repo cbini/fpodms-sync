@@ -33,4 +33,4 @@ requests==2.26.0
 rsa==4.7.2
 six==1.16.0
 tomli==1.2.1
-urllib3==1.26.6
+urllib3==1.26.7
