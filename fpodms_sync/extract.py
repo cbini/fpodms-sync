@@ -29,7 +29,7 @@ def main():
 
     data_path = PROJECT_PATH / "data"
 
-    ## get all assessment exports
+    # get all assessment exports
     for fn in fp.export.all_exports:
         print(fn.__name__)
         export = fn(year=CURRENT_SCHOOL_YEAR_ID)
@@ -50,7 +50,7 @@ def main():
         blob.upload_from_filename(data_filename)
         print(f"\tUploaded to {destination_blob_name}!\n")
 
-    ## get all classroom data
+    # get all classroom data
     endpoint_name = "bas_classes"
     schools = fp.api.school_by_district(school_year_id=CURRENT_SCHOOL_YEAR_ID)
     for s in schools:

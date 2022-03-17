@@ -16,24 +16,24 @@ PROJECT_PATH = pathlib.Path(__file__).absolute().parent
 
 
 def main():
-    ## load SIS rosters into pandas
+    # load SIS rosters into pandas
     print("Reading SIS roster into pandas...")
     roster_df = pd.read_json(ROSTER_FILEPATH)
 
-    ## create instance of F&P client
+    # create instance of F&P client
     print("Initializing F&P client...")
     fp = fpodms.FPODMS(email_address=FPODMS_USERNAME, password=FPODMS_PASSWORD)
 
-    ## get all years
+    # get all years
     print("Pulling all years from F&P...")
     all_years = fp.api.all_years()
     all_years = [y for y in all_years if y["id"] >= FIRST_ACADEMIC_YEAR]
 
-    ## get all schools
+    # get all schools
     print("Pulling all schools from F&P...")
     all_schools = fp.api.school_by_district(school_year_id=CURRENT_ACADEMIC_YEAR)
 
-    ## get all students currently in F&P
+    # get all students currently in F&P
     print("Pulling all students from F&P...")
     all_students_years = []
     for y in all_years:
@@ -44,18 +44,18 @@ def main():
             )
             all_students_years.extend(school_students)
 
-    ## read F&P students into pandas
-    ## drop duplicates and convert id to int
+    # read F&P students into pandas
+    # drop duplicates and convert id to int
     print("Reading F&P rosters into pandas...")
     fp_df = pd.DataFrame(all_students_years)
     fp_df = fp_df[["studentId", "studentIdentifier"]].drop_duplicates()
     fp_df.studentIdentifier = fp_df.studentIdentifier.astype("float").astype("Int64")
 
-    ## match FP rosters to SIS
+    # match FP rosters to SIS
     print("Matching SIS roster to F&P...")
     merge_df = pd.merge(left=roster_df, right=fp_df, how="left", on="studentIdentifier")
 
-    ## transform columns
+    # transform columns
     merge_df.studentId = merge_df.studentId.astype("float").astype("Int64")
     merge_df["schoolYearId"] = CURRENT_ACADEMIC_YEAR
     merge_df["schoolId"] = merge_df.schoolName.apply(
