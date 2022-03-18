@@ -9,9 +9,7 @@ license-expression = "MIT"
 dependencies = [
     "fpodms>=0.1.1",
     "google-cloud-storage>=2.2.1",
-    "pandas>=1.4.1",
-    "setuptools>=60.10.0",
-]
+    "pandas>=1.4.1"]
 requires-python = ">=3.9"
 
 [project.urls]
