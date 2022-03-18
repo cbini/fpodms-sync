@@ -4,10 +4,7 @@ import os
 import pathlib
 
 import fpodms
-from dotenv import load_dotenv
 from google.cloud import storage
-
-load_dotenv()
 
 FPODMS_USERNAME = os.getenv("FPODMS_USERNAME")
 FPODMS_PASSWORD = os.getenv("FPODMS_PASSWORD")

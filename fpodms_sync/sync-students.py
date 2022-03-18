@@ -3,9 +3,6 @@ import pathlib
 
 import fpodms
 import pandas as pd
-from dotenv import load_dotenv
-
-load_dotenv()
 
 FPODMS_USERNAME = os.getenv("FPODMS_USERNAME")
 FPODMS_PASSWORD = os.getenv("FPODMS_PASSWORD")

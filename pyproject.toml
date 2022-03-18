@@ -8,9 +8,9 @@ authors = [
 license-expression = "MIT"
 dependencies = [
     "fpodms>=0.1.1",
-    "python-dotenv>=0.19.2",
     "google-cloud-storage>=2.2.1",
     "pandas>=1.4.1",
+    "setuptools>=60.10.0",
 ]
 requires-python = ">=3.9"
 
@@ -30,3 +30,9 @@ dev = [
 [build-system]
 requires = ["pdm-pep517>=0.12.0"]
 build-backend = "pdm.pep517.api"
+
+[tool.pdm.scripts]
+extract.cmd = "python fpodms_sync/extract.py"
+extract.env_file = ".env"
+sync-students.cmd = "python fpodms_sync/sync-students.py"
+sync-students.env_file = ".env"
