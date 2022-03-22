@@ -30,7 +30,8 @@ requires = ["pdm-pep517>=0.12.0"]
 build-backend = "pdm.pep517.api"
 
 [tool.pdm.scripts]
+_.env_file = ".env"
 extract.cmd = "python fpodms_sync/extract.py"
-extract.env_file = ".env"
+extract.site_packages = true
 sync-students.cmd = "python fpodms_sync/sync-students.py"
-sync-students.env_file = ".env"
+sync-students.site_packages = true
