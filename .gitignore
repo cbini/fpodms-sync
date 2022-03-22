@@ -133,3 +133,4 @@ data/
 dev/
 archive/
 .pdm.toml
+sync-students.sh
