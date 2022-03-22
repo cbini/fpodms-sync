@@ -2,12 +2,9 @@ import gzip
 import json
 import os
 import pathlib
-import traceback
 
 import fpodms
 from google.cloud import storage
-
-from datarobot.utilities import email
 
 FPODMS_USERNAME = os.getenv("FPODMS_USERNAME")
 FPODMS_PASSWORD = os.getenv("FPODMS_PASSWORD")
@@ -88,6 +85,4 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as xc:
-        email_subject = "F&P Extract Error"
-        email_body = f"{xc}\n\n{traceback.format_exc()}"
-        email.send_email(subject=email_subject, body=email_body)
+        print(xc)
