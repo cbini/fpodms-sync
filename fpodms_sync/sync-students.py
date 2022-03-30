@@ -78,7 +78,10 @@ def main():
                 if s.get("studentIdentifier") == str(r["studentIdentifier"])
             ]
             stu_enr_cur = [
-                e for e in stu_enr_all if e.get("schoolYearId") == CURRENT_ACADEMIC_YEAR
+                e
+                for e in stu_enr_all
+                if e.get("schoolYearId") == r["schoolYearId"]
+                and e.get("schoolId") == r["schoolId"]
             ]
             if not stu_enr_cur:
                 print(f"\t{r['firstName']} {r['lastName']} {r['studentIdentifier']}")
