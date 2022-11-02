@@ -22,4 +22,4 @@ build-backend = "pdm.pep517.api"
 [tool.pdm.scripts]
 _.env_file = ".env"
 extract = { call = "fpodms_sync.extract:main" }
-sync-students = { call = "fpodms_sync.sync-students:main" }
+sync-students = { call = "fpodms_sync.sync_students:main" }
