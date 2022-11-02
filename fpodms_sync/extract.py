@@ -16,7 +16,7 @@ def main():
     gcs_client = storage.Client()
     gcs_bucket = gcs_client.bucket(os.getenv("GCS_BUCKET_NAME"))
 
-    fp = fpodms.FPODMS(
+    fp = fpodms.Client(
         email_address=os.getenv("FPODMS_USERNAME"),
         password=os.getenv("FPODMS_PASSWORD"),
     )

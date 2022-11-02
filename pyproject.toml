@@ -5,7 +5,7 @@ description = ""
 authors = [
   { name = "Charlie Bini", email = "5003326+cbini@users.noreply.github.com" },
 ]
-dependencies = ["fpodms>=0.1.1", "pandas>=1.5.1", "google-cloud-storage>=2.5.0"]
+dependencies = ["fpodms>=2.0.0", "pandas>=1.5.1", "google-cloud-storage>=2.5.0"]
 requires-python = ">=3.9"
 license = { text = "MIT" }
 [project.optional-dependencies]

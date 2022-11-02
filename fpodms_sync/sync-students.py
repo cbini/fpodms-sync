@@ -13,7 +13,7 @@ def main():
 
     # create instance of F&P client
     print("Initializing F&P client...")
-    fp = fpodms.FPODMS(
+    fp = fpodms.Client(
         email_address=os.getenv("FPODMS_USERNAME"),
         password=os.getenv("FPODMS_PASSWORD"),
     )
