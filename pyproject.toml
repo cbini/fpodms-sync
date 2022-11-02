@@ -3,35 +3,23 @@ name = ""
 version = ""
 description = ""
 authors = [
-    {name = "Charlie Bini", email = "5003326+cbini@users.noreply.github.com"},
+  { name = "Charlie Bini", email = "5003326+cbini@users.noreply.github.com" },
 ]
-license-expression = "MIT"
-dependencies = [
-    "fpodms>=0.1.1",
-    "google-cloud-storage>=2.2.1",
-    "pandas>=1.4.1"]
+dependencies = ["fpodms>=2.0.0", "pandas>=1.5.1", "google-cloud-storage>=2.5.0"]
 requires-python = ">=3.9"
-
-[project.urls]
-Homepage = ""
-
+license = { text = "MIT" }
 [project.optional-dependencies]
+
 [tool]
 [tool.pdm]
 [tool.pdm.dev-dependencies]
-dev = [
-    "black>=22.1.0",
-    "flake8>=4.0.1",
-    "pytest>=7.1.0",
-]
+dev = []
 
 [build-system]
-requires = ["pdm-pep517>=0.12.0"]
+requires = ["pdm-pep517>=1.0.0"]
 build-backend = "pdm.pep517.api"
 
 [tool.pdm.scripts]
 _.env_file = ".env"
-extract.cmd = "python fpodms_sync/extract.py"
-extract.site_packages = true
-sync-students.cmd = "python fpodms_sync/sync-students.py"
-sync-students.site_packages = true
+extract = { call = "fpodms_sync.extract:main" }
+sync-students = { call = "fpodms_sync.sync-students:main" }

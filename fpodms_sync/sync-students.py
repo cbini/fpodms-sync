@@ -1,34 +1,33 @@
 import os
-import pathlib
 
 import fpodms
 import pandas as pd
 
-FPODMS_USERNAME = os.getenv("FPODMS_USERNAME")
-FPODMS_PASSWORD = os.getenv("FPODMS_PASSWORD")
-ROSTER_FILEPATH = os.getenv("ROSTER_FILEPATH")
-CURRENT_ACADEMIC_YEAR = int(os.getenv("CURRENT_ACADEMIC_YEAR"))
-FIRST_ACADEMIC_YEAR = int(os.getenv("FIRST_ACADEMIC_YEAR"))
-PROJECT_PATH = pathlib.Path(__file__).absolute().parent
-
 
 def main():
+    current_academic_year = int(os.getenv("CURRENT_ACADEMIC_YEAR"))
+
     # load SIS rosters into pandas
     print("Reading SIS roster into pandas...")
-    roster_df = pd.read_json(ROSTER_FILEPATH)
+    roster_df = pd.read_json(os.getenv("ROSTER_FILEPATH"))
 
     # create instance of F&P client
     print("Initializing F&P client...")
-    fp = fpodms.FPODMS(email_address=FPODMS_USERNAME, password=FPODMS_PASSWORD)
+    fp = fpodms.Client(
+        email_address=os.getenv("FPODMS_USERNAME"),
+        password=os.getenv("FPODMS_PASSWORD"),
+    )
 
     # get all years
     print("Pulling all years from F&P...")
     all_years = fp.api.all_years()
-    all_years = [y for y in all_years if y["id"] >= FIRST_ACADEMIC_YEAR]
+    all_years = [
+        y for y in all_years if y["id"] >= int(os.getenv("FIRST_ACADEMIC_YEAR"))
+    ]
 
     # get all schools
     print("Pulling all schools from F&P...")
-    all_schools = fp.api.school_by_district(school_year_id=CURRENT_ACADEMIC_YEAR)
+    all_schools = fp.api.school_by_district(school_year_id=current_academic_year)
 
     # get all students currently in F&P
     print("Pulling all students from F&P...")
@@ -54,7 +53,7 @@ def main():
 
     # transform columns
     merge_df.studentId = merge_df.studentId.astype("float").astype("Int64")
-    merge_df["schoolYearId"] = CURRENT_ACADEMIC_YEAR
+    merge_df["schoolYearId"] = current_academic_year
     merge_df["schoolId"] = merge_df.schoolName.apply(
         lambda n: next(
             iter([s.get("id") for s in all_schools if s.get("name") == n]), None
@@ -78,7 +77,10 @@ def main():
                 if s.get("studentIdentifier") == str(r["studentIdentifier"])
             ]
             stu_enr_cur = [
-                e for e in stu_enr_all if e.get("schoolYearId") == CURRENT_ACADEMIC_YEAR
+                e
+                for e in stu_enr_all
+                if e.get("schoolYearId") == r["schoolYearId"]
+                and e.get("schoolId") == r["schoolId"]
             ]
             if not stu_enr_cur:
                 print(f"\t{r['firstName']} {r['lastName']} {r['studentIdentifier']}")
