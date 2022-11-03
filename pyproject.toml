@@ -23,3 +23,4 @@ build-backend = "pdm.pep517.api"
 _.env_file = ".env"
 extract = { call = "fpodms_sync.extract:main" }
 sync-students = { call = "fpodms_sync.sync_students:main" }
+post_lock = { shell = "pdm export -f requirements > requirements.txt" }
