@@ -161,6 +161,3 @@ cython_debug/
 
 # self added
 data/
-dev/
-archive/
-sync-students.sh
