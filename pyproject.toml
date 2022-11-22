@@ -5,9 +5,15 @@ description = ""
 authors = [
   { name = "Charlie Bini", email = "5003326+cbini@users.noreply.github.com" },
 ]
-dependencies = ["fpodms>=2.0.0", "pandas>=1.5.1", "google-cloud-storage>=2.5.0"]
+dependencies = [
+    "fpodms>=2.0.0",
+    "pandas>=1.5.1",
+    "google-cloud-storage>=2.5.0",
+    "datarobot @ file:///${PROJECT_ROOT}/../datarobot",
+]
 requires-python = ">=3.9"
 license = { text = "MIT" }
+dynamic = ["dependencies"]
 [project.optional-dependencies]
 
 [tool]
@@ -21,5 +27,5 @@ build-backend = "pdm.pep517.api"
 
 [tool.pdm.scripts]
 _.env_file = ".env"
-extract = { call = "fpodms_sync.extract:main", site_packages = true }
+extract = { call = "fpodms_sync.extract:main" }
 sync-students = { call = "fpodms_sync.sync_students:main" }
