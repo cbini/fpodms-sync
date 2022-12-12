@@ -7,9 +7,7 @@
     "codespaces": {
       "repositories": {
         "TEAMSchools/fpodms-sync-new": {
-          "permissions": {
-            "contents": "read"
-          }
+          "permissions": "write-all"
         }
       }
     }
