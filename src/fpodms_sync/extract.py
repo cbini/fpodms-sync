@@ -5,9 +5,8 @@ import pathlib
 import traceback
 
 import fpodms
-from google.cloud import storage
-
 from datarobot.utilities import email
+from google.cloud import storage
 
 
 def main():

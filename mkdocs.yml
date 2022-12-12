@@ -1,5 +1,5 @@
 # https://www.mkdocs.org/user-guide/configuration/
 
-site_name: fpodms-sync-new
+site_name: fpodms-sync
 theme:
   name: material

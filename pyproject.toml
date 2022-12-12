@@ -5,21 +5,16 @@ description = ""
 authors = [
   { name = "Charlie Bini", email = "5003326+cbini@users.noreply.github.com" },
 ]
-<<<<<<< HEAD
-dependencies = [
-    "fpodms>=2.0.0",
-    "pandas>=1.5.1",
-    "google-cloud-storage>=2.5.0",
-    "datarobot @ file:///${PROJECT_ROOT}/../datarobot",
-]
-requires-python = ">=3.9"
-license = { text = "MIT" }
-dynamic = ["dependencies"]
-=======
 requires-python = ">=3.9"
 license = { text = "GPL-3.0-or-later" }
-dependencies = ["fpodms>=0.2.0", "pandas>=1.5.1", "google-cloud-storage>=2.5.0"]
->>>>>>> cdd8ec373ee0809c015efdb778a5b0ae971e23d4
+dependencies = [
+  "fpodms>=0.2.0",
+  "pandas>=1.5.1",
+  "google-cloud-storage>=2.5.0",
+  "datarobot @ file:///${PROJECT_ROOT}/../datarobot",
+]
+dynamic = ["dependencies"]
+
 [project.optional-dependencies]
 
 [build-system]
@@ -28,7 +23,7 @@ build-backend = "pdm.pep517.api"
 
 [tool.pdm.build]
 package-dir = "src"
-includes = ["src/fpodms-sync-new/*"]
+includes = ["src/fpodms-sync/*"]
 
 [tool.pdm.dev-dependencies]
 dev = ["pytest"]

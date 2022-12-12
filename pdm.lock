@@ -23,16 +23,6 @@ requires_python = ">=3.6.0"
 summary = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
 
 [[package]]
-<<<<<<< HEAD
-name = "datarobot"
-version = "0.1.0"
-requires_python = ">=3.7"
-path = "../datarobot"
-summary = ""
-dependencies = [
-    "python-dotenv>=0.21.0",
-]
-=======
 name = "colorama"
 version = "0.4.6"
 requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
@@ -43,7 +33,6 @@ name = "exceptiongroup"
 version = "1.0.4"
 requires_python = ">=3.7"
 summary = "Backport of PEP 654 (exception groups)"
->>>>>>> cdd8ec373ee0809c015efdb778a5b0ae971e23d4
 
 [[package]]
 name = "fpodms"
@@ -219,12 +208,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "python-dotenv"
-version = "0.21.0"
-requires_python = ">=3.7"
-summary = "Read key-value pairs from a .env file and set them as environment variables"
-
-[[package]]
 name = "pytz"
 version = "2022.6"
 summary = "World timezone definitions, modern and historical"
@@ -269,13 +252,8 @@ requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 summary = "HTTP library with thread-safe connection pooling, file post, and more."
 
 [metadata]
-<<<<<<< HEAD
-lock_version = "4.0"
-content_hash = "sha256:863c40ceaa56d34447e0c8c8cc2a537bf341aa1c1f31f7431a7292350988c4d6"
-=======
 lock_version = "4.1"
 content_hash = "sha256:636bf2660041801456c4b0b9faa05419513b49a6a8fbdf11490b2f2ddc1f1f2b"
->>>>>>> cdd8ec373ee0809c015efdb778a5b0ae971e23d4
 
 [metadata.files]
 "attrs 22.1.0" = [
@@ -510,10 +488,6 @@ content_hash = "sha256:636bf2660041801456c4b0b9faa05419513b49a6a8fbdf11490b2f2dd
 "python-dateutil 2.8.2" = [
     {url = "https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
     {url = "https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
-]
-"python-dotenv 0.21.0" = [
-    {url = "https://files.pythonhosted.org/packages/2d/10/ff4f2f5b2a420fd09e1331d63cc87cf4367c5745c0a4ce99cea92b1cbacb/python_dotenv-0.21.0-py3-none-any.whl", hash = "sha256:1684eb44636dd462b66c3ee016599815514527ad99965de77f43e0944634a7e5"},
-    {url = "https://files.pythonhosted.org/packages/87/8d/ab7352188f605e3f663f34692b2ed7457da5985857e9e4c2335cd12fb3c9/python-dotenv-0.21.0.tar.gz", hash = "sha256:b77d08274639e3d34145dfa6c7008e66df0f04b7be7a75fd0d5292c191d79045"},
 ]
 "pytz 2022.6" = [
     {url = "https://files.pythonhosted.org/packages/76/63/1be349ff0a44e4795d9712cc0b2d806f5e063d4d34631b71b832fac715a8/pytz-2022.6.tar.gz", hash = "sha256:e89512406b793ca39f5971bc999cc538ce125c0e51c27941bef4568b460095e2"},

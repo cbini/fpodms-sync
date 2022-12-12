@@ -3,7 +3,6 @@ import traceback
 
 import fpodms
 import pandas as pd
-
 from datarobot.utilities import email
 
 
@@ -97,7 +96,9 @@ def main():
                 except Exception as xc:
                     print(xc)
                     print(traceback.format_exc())
-                    email_subject = f"FPODMS Student Sync: UPDATE {r['studentIdentifier']}"
+                    email_subject = (
+                        f"FPODMS Student Sync: UPDATE {r['studentIdentifier']}"
+                    )
                     email_body = f"{xc}\n\n{traceback.format_exc()}"
                     email.send_email(subject=email_subject, body=email_body)
 
