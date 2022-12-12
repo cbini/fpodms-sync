@@ -1,26 +1,36 @@
 [project]
-name = ""
-version = ""
+name = "fpodms-sync-new"
+version = "0.1.0"
 description = ""
 authors = [
   { name = "Charlie Bini", email = "5003326+cbini@users.noreply.github.com" },
 ]
-dependencies = ["fpodms>=2.0.0", "pandas>=1.5.1", "google-cloud-storage>=2.5.0"]
 requires-python = ">=3.9"
-license = { text = "MIT" }
+license = { text = "GPL-3.0-or-later" }
+dependencies = ["fpodms>=2.0.0", "pandas>=1.5.1", "google-cloud-storage>=2.5.0"]
 [project.optional-dependencies]
-
-[tool]
-[tool.pdm]
-[tool.pdm.dev-dependencies]
-dev = []
 
 [build-system]
 requires = ["pdm-pep517>=1.0.0"]
 build-backend = "pdm.pep517.api"
 
+[tool.pdm.build]
+package-dir = "src"
+includes = ["src/fpodms-sync-new/*"]
+
+[tool.pdm.dev-dependencies]
+dev = ["pytest"]
+
 [tool.pdm.scripts]
 _.env_file = ".env"
+post_lock = { shell = "pdm export -f requirements -o requirements.txt", help = "Export the locked packages set to requirements.txt" }
+clean-build = { shell = "bash .pdm/scripts/clean-build.sh", help = "remove build artifacts" }
+clean-pyc = { shell = "bash .pdm/scripts/clean-pyc.sh", help = "remove Python file artifacts" }
+clean-test = { shell = "bash .pdm/scripts/clean-test.sh", help = "remove test and coverage artifacts" }
+clean = { shell = "pdm run clean-build && pdm run clean-pyc && pdm run clean-test", help = "remove all build, test, coverage and Python artifacts" }
+docs-build = { shell = "mkdocs build", help = "Build the MkDocs documentation" }
+docs-serve = { shell = "mkdocs serve", help = "Run the builtin development server" }
+docs-deploy = { shell = "mkdocs gh-deploy", help = "Deploy your documentation to GitHub Pages" }
+test = { shell = "pdm run pytest", help = "run tests with the default Python" }
 extract = { call = "fpodms_sync.extract:main" }
 sync-students = { call = "fpodms_sync.sync_students:main" }
-post_lock = { shell = "pdm export -f requirements > requirements.txt" }

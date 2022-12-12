@@ -1,6 +1,6 @@
 version: 0.1
 cli:
-  version: 1.0.1
+  version: 1.1.0
 plugins:
   sources:
     - id: trunk
@@ -8,15 +8,17 @@ plugins:
       uri: https://github.com/trunk-io/plugins
 lint:
   enabled:
-    - git-diff-check
-    - black@22.10.0
-    - markdownlint@0.32.2
-    - taplo@0.7.0
     - actionlint@1.6.22
-    - flake8@5.0.4
-    - gitleaks@8.15.0
+    - black@22.10.0
+    - flake8@6.0.0
+    - git-diff-check
+    - gitleaks@8.15.2
     - isort@5.10.1
-    - prettier@2.7.1
+    - markdownlint@0.32.2
+    - prettier@2.8.1
+    - shellcheck@0.8.0
+    - shfmt@3.5.0
+    - taplo@0.7.0
 runtimes:
   enabled:
     - go@1.18.3
