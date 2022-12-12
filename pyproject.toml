@@ -8,10 +8,10 @@ authors = [
 requires-python = ">=3.9"
 license = { text = "GPL-3.0-or-later" }
 dependencies = [
-  "fpodms>=0.2.0",
+  "fpodms>=0.2.1",
   "pandas>=1.5.1",
   "google-cloud-storage>=2.5.0",
-  "datarobot @ file:///${PROJECT_ROOT}/../datarobot",
+  #"datarobot @ file:///${PROJECT_ROOT}/../datarobot",
 ]
 dynamic = ["dependencies"]
 
