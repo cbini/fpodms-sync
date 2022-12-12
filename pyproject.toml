@@ -7,7 +7,7 @@ authors = [
 ]
 requires-python = ">=3.9"
 license = { text = "GPL-3.0-or-later" }
-dependencies = ["fpodms>=0.2.0", "pandas>=1.5.1", "google-cloud-storage>=2.5.0"]
+dependencies = ["fpodms>=0.2.1", "pandas>=1.5.1", "google-cloud-storage>=2.5.0"]
 [project.optional-dependencies]
 
 [build-system]

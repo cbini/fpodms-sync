@@ -13,9 +13,9 @@ charset-normalizer==2.1.1 \
 exceptiongroup==1.0.4 \
     --hash=sha256:542adf9dea4055530d6e1279602fa5cb11dab2395fa650b8674eaec35fc4a828 \
     --hash=sha256:bd14967b79cd9bdb54d97323216f8fdf533e278df937aa2a90089e7d6e06e5ec
-fpodms==0.2.0 \
-    --hash=sha256:21d9a7cdaa31bcabb09f58fef22c5d9bad3e1f10a4c9030aca960e917a5dea6c \
-    --hash=sha256:49e15d12000101cb2fe32b68a54cc3cedbb25f6a6d565ec8d95936793b68cb73
+fpodms==0.2.1 \
+    --hash=sha256:3cabb621922df4a40f8109c77d5ea6b915d04d33ebf056fc8187b83e68ea1a4e \
+    --hash=sha256:7f6fe4de9d63672db36347eff1b0e90bad1326937b4b9ed364dd1041c3f2cda3
 google-api-core==2.11.0 \
     --hash=sha256:4b9bb5d5a380a0befa0573b302651b8a9a89262c1730e37bf423cec511804c22 \
     --hash=sha256:ce222e27b0de0d7bc63eb043b956996d6dccab14cc3b690aaea91c9cc99dc16e
