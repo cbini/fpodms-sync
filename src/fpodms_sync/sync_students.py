@@ -76,17 +76,31 @@ def main():
                 for s in all_students_years
                 if s.get("studentIdentifier") == str(r["studentIdentifier"])
             ]
+
             stu_enr_cur = [
-                e
-                for e in stu_enr_all
-                if e.get("schoolYearId") == r["schoolYearId"]
-                and e.get("schoolId") == r["schoolId"]
+                e for e in stu_enr_all if e.get("schoolYearId") == r["schoolYearId"]
             ]
+
+            stu_enr_cur_sch = [
+                e for e in stu_enr_cur if e.get("schoolId") == r["schoolId"]
+            ]
+
             if not stu_enr_cur:
                 print(f"\t{r['firstName']} {r['lastName']} {r['studentIdentifier']}")
                 try:
                     fp.api.add_student_to_school_and_grade_and_maybe_class(**r)
-                    print("\t\tUPDATED")
+                    print("\t\tRE-ENROLLED")
+                except Exception as xc:
+                    print(xc)
+            elif not stu_enr_cur_sch:
+                print(f"\t{r['firstName']} {r['lastName']} {r['studentIdentifier']}")
+                try:
+                    fp.api.move_students(
+                        stu_enr_cur[-1]["schoolId"],
+                        r["schoolId"],
+                        {"studentId": r["studentId"], "gradeId": r["gradeId"]},
+                    )
+                    print("\t\tMOVED")
                 except Exception as xc:
                     print(xc)
 

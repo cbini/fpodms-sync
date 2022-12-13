@@ -9,7 +9,7 @@ from google.cloud import storage
 
 def main():
     file_dir = pathlib.Path(__file__).absolute().parent
-    data_dir = file_dir / "data"
+    data_dir = file_dir.parent.parent / "data"
 
     current_school_year_id = int(os.getenv("CURRENT_ACADEMIC_YEAR"))
 
@@ -32,7 +32,7 @@ def main():
         export = fn(year=current_school_year_id)
         export_data = export.data
 
-        export_dir = file_dir / "data" / fn.__name__
+        export_dir = data_dir / fn.__name__
         if not export_dir.exists():
             export_dir.mkdir(parents=True)
             print(f"\tCreated {'/'.join(export_dir.parts[-3:])}...")
@@ -48,7 +48,6 @@ def main():
         print(f"\tUploaded to {destination_blob_name}!\n")
 
     # get all classroom data
-    endpoint_name = "bas_classes"
     schools = fp.api.school_by_district(school_year_id=current_school_year_id)
     for s in schools:
         print(f"{s.get('name')} classes...")
@@ -62,15 +61,13 @@ def main():
             )
             classes_updated.append(c)
 
-        endpoint_dir = data_dir / endpoint_name
-        if not endpoint_dir.exists():
-            endpoint_dir.mkdir(parents=True)
-            print(f"\tCreated {'/'.join(endpoint_dir.parts[-3:])}...")
+        bas_classes_dir = data_dir / "bas_classes"
+        if not bas_classes_dir.exists():
+            bas_classes_dir.mkdir(parents=True)
+            print(f"\tCreated {'/'.join(bas_classes_dir.parts[-3:])}...")
 
-        classes_filename = (
-            f"{endpoint_name}_{school_id}_{s.get('schoolYearId')}.json.gz"
-        )
-        classes_filepath = endpoint_dir / classes_filename
+        classes_filename = f"bas_classes_{school_id}_{s.get('schoolYearId')}.json.gz"
+        classes_filepath = bas_classes_dir / classes_filename
         with gzip.open(classes_filepath, "wt", encoding="utf-8") as f:
             json.dump(classes_updated, f)
         print(f"\tSaved '{classes_filename}' to {classes_filepath}")
